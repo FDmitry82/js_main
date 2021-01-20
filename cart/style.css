@@ -1,0 +1,49 @@
+body {
+  padding-top: 80px;
+}
+
+.show-cart li {
+  display: flex;
+}
+.card {
+  margin-bottom: 20px;
+}
+.card-img-top {
+  width: 300px;
+  height: 300px;
+  align-self: center;
+}
+
+.pictures {
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+  column-count: 4;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+  margin-bottom: -1em;
+}
+a {
+  display: inline-block;
+}
+img {
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+}
+.full {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8%;
+  background: #CCC center no-repeat;
+  background: rgba(0, 0, 0, 0.5) center no-repeat;
+  background-size: contain;
+  background-origin: content-box;
+}
+.full:target {
+  display: block;
+}
