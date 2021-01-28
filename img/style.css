@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+	width: 700px;
+	margin: 0 auto;
+}
+
+#big {
+	background-color: peachpuff;
+	height: 540px;
+	margin: 0 auto;
+	padding: 50px 40px 50px 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+
+#big_picture img {
+	width: 380px;
+	height: 350px;
+	margin: 0 auto;
+}
+
+#previous {
+	fill: crimson;
+	margin: 0 0 0 60px;
+}
+
+#next {
+	fill: crimson;
+	margin: 0 60px 0 0;
+}
+
+#previous:hover,
+#next:hover {
+	fill: coral;
+}
+
+#gallery {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	padding: 60px;
+	background-color: lightblue;
+}
+
+#image_1, #image_2, #image_3 {
+	margin: 0px;
+    width: 160px;
+	height: 120px;
+}
