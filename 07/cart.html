@@ -1,0 +1,150 @@
+<!--  
+1.	Реализовать страницу корзины:
+a.	Добавить возможность не только смотреть состав корзины, но и редактировать его, обновляя общую стоимость или выводя сообщение «Корзина пуста».
+2.	На странице корзины:
+a.	Сделать отдельные блоки «Состав корзины», «Адрес доставки», «Комментарий»;
+b.	Сделать эти поля сворачиваемыми;
+c.	Заполнять поля по очереди, то есть давать посмотреть состав корзины, внизу которого есть кнопка «Далее». Если нажать ее, сворачивается «Состав корзины» и открывается «Адрес доставки» и так далее.
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" />
+    <title>Корзина покупок</title>
+    <script type="text/javascript" src="cart.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+</head>
+
+<body>
+    <!-- Кнопки навигации -->
+<nav class="navbar navbar-inverse bg-inverse fixed-top bg-faded">
+    <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Корзина (<span class="total-count"></span>)</button><button class="clear-cart btn btn-danger">Очистить корзину</button></div>
+    </div>
+</nav>
+
+
+<!-- Основной контент -->
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card" style="width: 20rem;">
+  <a href="#1.jpg">
+    <img class="card-img-top" src="img/small/1.jpg">
+  </a>
+  <a id="1.jpg" href="#" class="full" style="background-image:url(img/big/1.jpg)"></a>
+  <div class="card-block">
+    <h4 class="card-title">Молоко</h4>
+    <p class="card-text">Цена: 67 руб</p>
+    <a href="#" data-name="Молоко" data-price="67" class="add-to-cart btn btn-primary">Добавить</a>
+  </div>
+</div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 20rem;">
+  <a href="#2.jpg">
+    <img class="card-img-top" src="img/small/2.jpg">
+  </a>
+  <a id="2.jpg" href="#" class="full" style="background-image:url(img/big/2.jpg)"></a>
+  <div class="card-block">
+    <h4 class="card-title">Яйца</h4>
+    <p class="card-text">Цена: 84 руб</p>
+    <a href="#" data-name="Яйца" data-price="84" class="add-to-cart btn btn-primary">Добавить</a>
+  </div>
+</div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 20rem;">
+  <a href="#3.jpg">
+    <img class="card-img-top" src="img/small/3.jpg">
+  </a>
+  <a id="3.jpg" href="#" class="full" style="background-image:url(img/big/3.jpg)"></a>
+  <div class="card-block">
+    <h4 class="card-title">Хлеб</h4>
+    <p class="card-text">Цена: 37 руб</p>
+    <a href="#" data-name="Хлеб" data-price="37" class="add-to-cart btn btn-primary">Добавить</a>
+  </div>
+</div>
+    </div>
+</div>
+
+  
+ <!-- Всплывающее окно -->
+
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Корзина</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<div class="grid">
+    <div class="js-ui-accordion">
+
+<!-- Основной заказ -->
+      <h3>Ваш заказ</h3>
+      <div class="modal-body">
+        <table class="show-cart table">
+        </table>
+        <div>Общая стоимость: <span class="total-cart"></span> руб</div>
+      </div>
+
+<!-- Адрес доставки -->
+      <h3>Адрес доставки</h3>
+    <div>
+<form action="action_form.php" method="POST">
+  <fieldset>
+    <legend>Контактная информация</legend>
+    <label>Email:<br><input type="text" name="email"></label><br>
+    <label>Мобильный:<br><input type="text" name="mobile"></label><br>
+    <label>Факс:<br><input type="text" name="fax"></label>
+  </fieldset>
+<!--   <input type="submit"> -->
+</form>
+</div>
+
+<!-- Комментарии -->
+<h3>Комментарии</h3>
+<div>
+    <textarea name="comment" cols="85" rows="4"></textarea></p>
+</div>
+      
+<!-- Способ оплаты -->
+<h3>Способ оплаты</h3>
+<div><form action="action_form.php" method="POST">
+  <ol>
+    <li><input type="radio" name="age" value="При получении" checked>При получении</li>
+    <li><input type="radio" name="age" value="Наличные">Наличные</li>
+    <li><input type="radio" name="age" value="VISA">VISA</li>
+    <li><input type="radio" name="age" value="Банковский перевод">Банковский перевод</li>
+  </ol>
+<!--   <input type="submit"> -->
+</form>
+    </div>
+  </dv>
+</div>
+
+<!-- Кнопки -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-primary">Оплата</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
